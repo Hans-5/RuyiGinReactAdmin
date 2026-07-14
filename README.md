@@ -1,2 +1,2 @@
 # RuyiGinReactAdmin
-A modern, pure AI-driven management system with separated frontend and backend developed using the Gin framework and React framework.
+使用Gin框架和React框架开发的前后端分离的纯AI驱动的现代管理系统
