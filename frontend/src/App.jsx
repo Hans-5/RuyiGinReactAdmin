@@ -1,17 +1,14 @@
 import './App.css'
-import Header from './components/Header'
-import Sidebar from './components/Sidebar'
-import MainContent from './components/MainContent'
+import AdminLayout from './layouts/AdminLayout'
+import Dashboard from './pages/Dashboard'
 
+// The layout shell (header + sidebar + content) lives in AdminLayout, so every
+// page renders the same way: <AdminLayout><SomePage /></AdminLayout>.
 function App() {
   return (
-    <div className="app-container">
-      <Header />
-      <div className="app-body">
-        <Sidebar />
-        <MainContent />
-      </div>
-    </div>
+    <AdminLayout>
+      <Dashboard />
+    </AdminLayout>
   )
 }
 

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
+import { getData } from '../api/apiClient'
 
 /**
- * useMenu - Hook for managing menu state (open/close submenu)
+ * useMenu - Manage sidebar submenu open/close state.
  */
 export function useMenu(defaultOpen = null) {
   const [expandedMenu, setExpandedMenu] = useState(defaultOpen)
@@ -14,40 +15,32 @@ export function useMenu(defaultOpen = null) {
 }
 
 /**
- * useMockData - Hook for loading mock data with loading state
- * Replace fetch logic for real API calls
+ * useApiData - Load data for an endpoint through the API client, with
+ * loading/error state. Works the same whether the client serves mock data or
+ * a real backend, so pages never change when you switch VITE_USE_MOCK off.
  */
-export function useMockData(dataGenerator, dependencies = []) {
-  const [data, setData] = useState([])
+export function useApiData(endpoint, initial = []) {
+  const [data, setData] = useState(initial)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    try {
-      setLoading(true)
-      // Simulate API delay
-      setTimeout(() => {
-        setData(dataGenerator())
-        setLoading(false)
-      }, 100)
-    } catch (err) {
-      setError(err.message)
-      setLoading(false)
+    let alive = true
+    setLoading(true)
+    getData(endpoint)
+      .then((result) => {
+        if (alive) setData(result)
+      })
+      .catch((err) => {
+        if (alive) setError(err.message)
+      })
+      .finally(() => {
+        if (alive) setLoading(false)
+      })
+    return () => {
+      alive = false
     }
-  }, dependencies)
+  }, [endpoint])
 
   return { data, loading, error }
-}
-
-/**
- * useTheme - Hook for theme switching (future enhancement)
- */
-export function useTheme() {
-  const [theme, setTheme] = useState('light')
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light')
-  }
-
-  return { theme, toggleTheme }
 }

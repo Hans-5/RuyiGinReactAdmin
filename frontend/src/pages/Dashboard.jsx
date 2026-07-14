@@ -2,19 +2,16 @@ import './Dashboard.css'
 import Card from '../components/Common/Card'
 import StatCard from '../components/Common/StatCard'
 import Badge from '../components/Common/Badge'
-import {
-  generateStatsData,
-  generateChartData,
-  generateActivitiesData,
-  generateTableData
-} from '../config/mockData'
+import { useApiData } from '../hooks/useCommon'
 
 export default function Dashboard() {
-  // Load mock data from config
-  const stats = generateStatsData()
-  const chartData = generateChartData()
-  const recentActivities = generateActivitiesData()
-  const tableData = generateTableData()
+  // All data flows through the API client (mock now, real backend later).
+  const { data: stats } = useApiData('/dashboard/stats')
+  const { data: chartData } = useApiData('/dashboard/chart')
+  const { data: recentActivities } = useApiData('/dashboard/activities')
+  const { data: tableData } = useApiData('/dashboard/table')
+
+  const maxValue = Math.max(1, ...chartData.map((d) => d.value))
 
   return (
     <div className="dashboard">
@@ -23,7 +20,7 @@ export default function Dashboard() {
         <p className="dashboard-subtitle">Welcome back! Here's what's happening with your system today.</p>
       </div>
 
-      {/* Stats Cards - Using StatCard Component */}
+      {/* Stats Cards */}
       <div className="stats-grid">
         {stats.map((stat, index) => (
           <StatCard
@@ -37,41 +34,39 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {/* Charts Section - Using Card Component */}
+      {/* Charts */}
       <div className="charts-section">
         <Card title="Monthly Revenue">
           <div className="simple-bar-chart">
-            {chartData.map((data, index) => {
-              const maxValue = Math.max(...chartData.map(d => d.value))
-              const percentage = (data.value / maxValue) * 100
-              return (
-                <div key={index} className="bar-item">
-                  <div className="bar-value">${(data.value / 1000).toFixed(1)}k</div>
-                  <div className="bar" style={{ height: `${percentage}%` }}></div>
-                  <div className="bar-label">{data.month}</div>
-                </div>
-              )
-            })}
+            {chartData.map((data, index) => (
+              <div key={index} className="bar-item">
+                <div className="bar-value">${(data.value / 1000).toFixed(1)}k</div>
+                <div className="bar" style={{ height: `${(data.value / maxValue) * 100}%` }}></div>
+                <div className="bar-label">{data.month}</div>
+              </div>
+            ))}
           </div>
         </Card>
 
         <Card title="Recent Activities">
           <div className="activity-list">
-            {recentActivities.map(activity => (
+            {recentActivities.map((activity) => (
               <div key={activity.id} className="activity-item">
                 <div className="activity-dot"></div>
                 <div className="activity-content">
                   <div className="activity-action">{activity.action}</div>
                   <div className="activity-time">{activity.time}</div>
                 </div>
-                <Badge variant="success">Success</Badge>
+                <Badge variant={activity.status === 'success' ? 'success' : 'warning'}>
+                  {activity.status}
+                </Badge>
               </div>
             ))}
           </div>
         </Card>
       </div>
 
-      {/* Quick Stats Table - Using Card Component */}
+      {/* Quick Stats Table */}
       <Card title="Quick Stats">
         <table className="simple-table">
           <thead>
@@ -90,7 +85,11 @@ export default function Dashboard() {
                 <td>{row.thisMonth}</td>
                 <td>{row.lastMonth}</td>
                 <td>{row.change}</td>
-                <td><Badge variant="success">{row.status === 'up' ? '↑ Up' : '↓ Down'}</Badge></td>
+                <td>
+                  <Badge variant={row.status === 'up' ? 'success' : 'error'}>
+                    {row.status === 'up' ? '↑ Up' : '↓ Down'}
+                  </Badge>
+                </td>
               </tr>
             ))}
           </tbody>

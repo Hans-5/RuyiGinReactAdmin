@@ -1,10 +1,9 @@
 import './MainContent.css'
-import Dashboard from '../pages/Dashboard'
 
-export default function MainContent() {
+export default function MainContent({ children }) {
   return (
     <main className="main-content">
-      <Dashboard />
+      {children}
     </main>
   )
 }
