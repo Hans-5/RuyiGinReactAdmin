@@ -33,75 +33,6 @@
   margin-bottom: 8px;
 }
 
-.stat-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 24px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transition: all var(--transition-normal);
-  transform-style: preserve-3d;
-  perspective: 1000px;
-}
-
-.stat-card:hover {
-  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transform: translateY(-4px) translateZ(0);
-  background: var(--glass-bg-light);
-  border-color: rgba(24, 144, 255, 0.2);
-}
-
-.stat-icon {
-  font-size: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 56px;
-  height: 56px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(24, 144, 255, 0.1), rgba(19, 194, 194, 0.05));
-  transition: all var(--transition-normal);
-}
-
-.stat-card:hover .stat-icon {
-  transform: scale(1.1) rotateZ(10deg);
-}
-
-.stat-info {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.stat-title {
-  font-size: 12px;
-  color: var(--text-secondary);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 4px;
-}
-
-.stat-value {
-  font-size: 28px;
-  font-weight: 800;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 4px;
-}
-
-.stat-change {
-  font-size: 12px;
-  font-weight: 600;
-  color: #52c41a;
-}
-
 /* Charts Section */
 .charts-section {
   display: grid;
@@ -109,54 +40,12 @@
   gap: 16px;
 }
 
-.chart-card,
-.table-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  padding: 24px;
-  transition: all var(--transition-normal);
-  animation: fadeInUp 1s var(--transition-normal);
-}
-
-.chart-card:hover,
-.table-card:hover {
-  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transform: translateY(-4px);
-  border-color: rgba(24, 144, 255, 0.15);
-}
-
-.card-header {
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.card-header h3 {
-  font-size: 16px;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 0;
-}
-
 /* Simple Bar Chart */
-.chart-container {
-  height: 300px;
-  display: flex;
-  align-items: flex-end;
-}
-
 .simple-bar-chart {
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
-  height: 100%;
+  height: 300px;
   width: 100%;
   gap: 8px;
   padding: 16px 0;
@@ -257,23 +146,7 @@
   font-weight: 500;
 }
 
-.activity-badge {
-  font-size: 11px;
-  color: #52c41a;
-  background: linear-gradient(135deg, rgba(82, 196, 26, 0.1), rgba(82, 196, 26, 0.05));
-  padding: 4px 10px;
-  border-radius: 6px;
-  white-space: nowrap;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(82, 196, 26, 0.2);
-  font-weight: 600;
-}
-
 /* Table */
-.table-card {
-  margin-top: 8px;
-}
-
 .simple-table {
   width: 100%;
   border-collapse: collapse;
@@ -308,32 +181,4 @@
 
 .simple-table tbody tr:hover {
   background: rgba(24, 144, 255, 0.05);
-}
-
-.status-badge {
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 600;
-  backdrop-filter: blur(10px);
-  border: 1px solid;
-}
-
-.status-badge.success {
-  background: linear-gradient(135deg, rgba(82, 196, 26, 0.1), rgba(82, 196, 26, 0.05));
-  color: #52c41a;
-  border-color: rgba(82, 196, 26, 0.2);
-}
-
-.status-badge.warning {
-  background: linear-gradient(135deg, rgba(250, 173, 20, 0.1), rgba(250, 173, 20, 0.05));
-  color: #faad14;
-  border-color: rgba(250, 173, 20, 0.2);
-}
-
-.status-badge.error {
-  background: linear-gradient(135deg, rgba(255, 77, 79, 0.1), rgba(255, 77, 79, 0.05));
-  color: #ff4d4f;
-  border-color: rgba(255, 77, 79, 0.2);
 }

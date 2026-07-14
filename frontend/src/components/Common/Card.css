@@ -1,0 +1,56 @@
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  padding: 24px;
+  transition: all var(--transition-normal);
+  animation: fadeInUp 0.8s var(--transition-normal);
+}
+
+.glass-card:hover {
+  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+  border-color: rgba(24, 144, 255, 0.15);
+}
+
+.glass-card--sm {
+  padding: 16px;
+}
+
+.glass-card--lg {
+  padding: 32px;
+}
+
+.glass-card--xl {
+  padding: 40px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(24, 144, 255, 0.1);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.card-action {
+  display: flex;
+  gap: 8px;
+}
+
+.card-content {
+  animation: fadeInUp 1s var(--transition-normal);
+}

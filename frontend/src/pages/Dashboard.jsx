@@ -1,4 +1,7 @@
 import './Dashboard.css'
+import Card from '../components/Common/Card'
+import StatCard from '../components/Common/StatCard'
+import Badge from '../components/Common/Badge'
 
 export default function Dashboard() {
   // Mock data
@@ -34,51 +37,39 @@ export default function Dashboard() {
         <p className="dashboard-subtitle">Welcome back! Here's what's happening with your system today.</p>
       </div>
 
-      {/* Stats Cards */}
+      {/* Stats Cards - Using StatCard Component */}
       <div className="stats-grid">
         {stats.map((stat, index) => (
-          <div key={index} className="stat-card">
-            <div className="stat-icon" style={{ color: stat.color }}>
-              {stat.icon}
-            </div>
-            <div className="stat-info">
-              <div className="stat-title">{stat.title}</div>
-              <div className="stat-value">{stat.value}</div>
-              <div className="stat-change">
-                <span style={{ color: '#52c41a' }}>↑ {stat.change}</span>
-              </div>
-            </div>
-          </div>
+          <StatCard
+            key={index}
+            icon={stat.icon}
+            title={stat.title}
+            value={stat.value}
+            change={stat.change}
+            color={stat.color}
+          />
         ))}
       </div>
 
-      {/* Charts Section */}
+      {/* Charts Section - Using Card Component */}
       <div className="charts-section">
-        <div className="chart-card">
-          <div className="card-header">
-            <h3>Monthly Revenue</h3>
+        <Card title="Monthly Revenue">
+          <div className="simple-bar-chart">
+            {chartData.map((data, index) => {
+              const maxValue = Math.max(...chartData.map(d => d.value))
+              const percentage = (data.value / maxValue) * 100
+              return (
+                <div key={index} className="bar-item">
+                  <div className="bar-value">${(data.value / 1000).toFixed(1)}k</div>
+                  <div className="bar" style={{ height: `${percentage}%` }}></div>
+                  <div className="bar-label">{data.month}</div>
+                </div>
+              )
+            })}
           </div>
-          <div className="chart-container">
-            <div className="simple-bar-chart">
-              {chartData.map((data, index) => {
-                const maxValue = Math.max(...chartData.map(d => d.value))
-                const percentage = (data.value / maxValue) * 100
-                return (
-                  <div key={index} className="bar-item">
-                    <div className="bar-value">${(data.value / 1000).toFixed(1)}k</div>
-                    <div className="bar" style={{ height: `${percentage}%` }}></div>
-                    <div className="bar-label">{data.month}</div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </div>
+        </Card>
 
-        <div className="chart-card">
-          <div className="card-header">
-            <h3>Recent Activities</h3>
-          </div>
+        <Card title="Recent Activities">
           <div className="activity-list">
             {recentActivities.map(activity => (
               <div key={activity.id} className="activity-item">
@@ -87,18 +78,15 @@ export default function Dashboard() {
                   <div className="activity-action">{activity.action}</div>
                   <div className="activity-time">{activity.time}</div>
                 </div>
-                <div className="activity-badge">Success</div>
+                <Badge variant="success">Success</Badge>
               </div>
             ))}
           </div>
-        </div>
+        </Card>
       </div>
 
-      {/* Quick Stats Table */}
-      <div className="table-card">
-        <div className="card-header">
-          <h3>Quick Stats</h3>
-        </div>
+      {/* Quick Stats Table - Using Card Component */}
+      <Card title="Quick Stats">
         <table className="simple-table">
           <thead>
             <tr>
@@ -115,32 +103,32 @@ export default function Dashboard() {
               <td>8,420</td>
               <td>7,512</td>
               <td>+12.1%</td>
-              <td><span className="status-badge success">↑ Up</span></td>
+              <td><Badge variant="success">↑ Up</Badge></td>
             </tr>
             <tr>
               <td>Conversion Rate</td>
               <td>3.24%</td>
               <td>2.98%</td>
               <td>+8.7%</td>
-              <td><span className="status-badge success">↑ Up</span></td>
+              <td><Badge variant="success">↑ Up</Badge></td>
             </tr>
             <tr>
               <td>Bounce Rate</td>
               <td>42.3%</td>
               <td>45.2%</td>
               <td>-6.4%</td>
-              <td><span className="status-badge success">↓ Down</span></td>
+              <td><Badge variant="success">↓ Down</Badge></td>
             </tr>
             <tr>
               <td>Avg Session Time</td>
               <td>4m 32s</td>
               <td>3m 48s</td>
               <td>+19.6%</td>
-              <td><span className="status-badge success">↑ Up</span></td>
+              <td><Badge variant="success">↑ Up</Badge></td>
             </tr>
           </tbody>
         </table>
-      </div>
+      </Card>
     </div>
   )
 }
