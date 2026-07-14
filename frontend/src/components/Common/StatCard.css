@@ -4,21 +4,36 @@
   gap: 16px;
   padding: 24px;
   background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-radius: 16px;
-  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   transition: all var(--transition-normal);
   transform-style: preserve-3d;
   perspective: 1000px;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Accent top edge — subtle tech-blue signature on every stat tile. */
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  opacity: 0.85;
 }
 
 .stat-card:hover {
-  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transform: translateY(-4px) translateZ(0);
+  box-shadow: var(--shadow-xl), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transform: translateY(-6px) translateZ(0);
   background: var(--glass-bg-light);
-  border-color: rgba(24, 144, 255, 0.2);
+  border-color: rgba(24, 144, 255, 0.4);
 }
 
 .stat-icon {

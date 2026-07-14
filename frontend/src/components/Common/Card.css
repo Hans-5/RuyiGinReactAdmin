@@ -1,18 +1,19 @@
 .glass-card {
   background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-radius: 16px;
-  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   padding: 24px;
   transition: all var(--transition-normal);
   animation: fadeInUp 0.8s var(--transition-normal);
 }
 
 .glass-card:hover {
-  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   transform: translateY(-4px);
-  border-color: rgba(24, 144, 255, 0.15);
+  border-color: rgba(24, 144, 255, 0.35);
 }
 
 .glass-card--sm {
@@ -39,7 +40,7 @@
 .card-title {
   font-size: 16px;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+  background: linear-gradient(135deg, #1890ff, #13c2c2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

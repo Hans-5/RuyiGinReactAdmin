@@ -12,13 +12,17 @@
   --header-height: 64px;
   --sidebar-width: 256px;
   
-  /* Modern enhancements */
-  --glass-bg: rgba(255, 255, 255, 0.08);
-  --glass-bg-light: rgba(255, 255, 255, 0.12);
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
-  --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.15);
+  /* Modern enhancements — frosted glass tuned for a LIGHT backdrop.
+     Low-alpha white is invisible on light grey, so we use high-opacity
+     white + saturated blur to read as real frosted panels. */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-bg-light: rgba(255, 255, 255, 0.88);
+  --glass-blur: saturate(160%) blur(16px);
+  --glass-border: rgba(255, 255, 255, 0.9);
+  --shadow-sm: 0 4px 16px rgba(24, 74, 140, 0.08);
+  --shadow-md: 0 8px 28px rgba(24, 74, 140, 0.12);
+  --shadow-lg: 0 16px 40px rgba(24, 74, 140, 0.16);
+  --shadow-xl: 0 24px 56px rgba(24, 74, 140, 0.2);
   --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -46,7 +50,12 @@ html, body {
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  /* Soft tech-blue aurora so the frosted panels have color to refract. */
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(24, 144, 255, 0.18) 0%, transparent 45%),
+    radial-gradient(ellipse at 100% 15%, rgba(19, 194, 194, 0.16) 0%, transparent 45%),
+    radial-gradient(ellipse at 60% 100%, rgba(24, 144, 255, 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, #eef3fb 0%, #e6ecf5 100%);
   background-attachment: fixed;
 }
 
@@ -121,5 +130,16 @@ html, body {
   }
   50% {
     opacity: 0.7;
+  }
+}
+
+@keyframes growUp {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
   }
 }
