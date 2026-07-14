@@ -2,33 +2,19 @@ import './Dashboard.css'
 import Card from '../components/Common/Card'
 import StatCard from '../components/Common/StatCard'
 import Badge from '../components/Common/Badge'
+import {
+  generateStatsData,
+  generateChartData,
+  generateActivitiesData,
+  generateTableData
+} from '../config/mockData'
 
 export default function Dashboard() {
-  // Mock data
-  const stats = [
-    { title: 'Total Users', value: '12,548', change: '+12%', icon: '👥', color: '#1890ff' },
-    { title: 'Total Orders', value: '4,285', change: '+8%', icon: '📦', color: '#13c2c2' },
-    { title: 'Revenue', value: '$485,200', change: '+15%', icon: '💰', color: '#faad14' },
-    { title: 'Page Views', value: '2.8M', change: '+5%', icon: '👁️', color: '#52c41a' }
-  ]
-
-  const recentActivities = [
-    { id: 1, action: 'New user registration', time: '2 hours ago', status: 'success' },
-    { id: 2, action: 'System backup completed', time: '4 hours ago', status: 'success' },
-    { id: 3, action: 'Database optimization', time: '6 hours ago', status: 'success' },
-    { id: 4, action: 'Security update applied', time: '8 hours ago', status: 'success' },
-    { id: 5, action: 'New feature deployment', time: '10 hours ago', status: 'success' }
-  ]
-
-  const chartData = [
-    { month: 'Jan', value: 4200 },
-    { month: 'Feb', value: 3800 },
-    { month: 'Mar', value: 2800 },
-    { month: 'Apr', value: 2700 },
-    { month: 'May', value: 4200 },
-    { month: 'Jun', value: 3800 },
-    { month: 'Jul', value: 4300 }
-  ]
+  // Load mock data from config
+  const stats = generateStatsData()
+  const chartData = generateChartData()
+  const recentActivities = generateActivitiesData()
+  const tableData = generateTableData()
 
   return (
     <div className="dashboard">
@@ -98,34 +84,15 @@ export default function Dashboard() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Active Users</td>
-              <td>8,420</td>
-              <td>7,512</td>
-              <td>+12.1%</td>
-              <td><Badge variant="success">↑ Up</Badge></td>
-            </tr>
-            <tr>
-              <td>Conversion Rate</td>
-              <td>3.24%</td>
-              <td>2.98%</td>
-              <td>+8.7%</td>
-              <td><Badge variant="success">↑ Up</Badge></td>
-            </tr>
-            <tr>
-              <td>Bounce Rate</td>
-              <td>42.3%</td>
-              <td>45.2%</td>
-              <td>-6.4%</td>
-              <td><Badge variant="success">↓ Down</Badge></td>
-            </tr>
-            <tr>
-              <td>Avg Session Time</td>
-              <td>4m 32s</td>
-              <td>3m 48s</td>
-              <td>+19.6%</td>
-              <td><Badge variant="success">↑ Up</Badge></td>
-            </tr>
+            {tableData.map((row, idx) => (
+              <tr key={idx}>
+                <td>{row.metric}</td>
+                <td>{row.thisMonth}</td>
+                <td>{row.lastMonth}</td>
+                <td>{row.change}</td>
+                <td><Badge variant="success">{row.status === 'up' ? '↑ Up' : '↓ Down'}</Badge></td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </Card>
