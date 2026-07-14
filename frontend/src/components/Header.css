@@ -3,13 +3,16 @@
   justify-content: space-between;
   align-items: center;
   height: var(--header-height);
-  background: linear-gradient(90deg, #1890ff 0%, #13c2c2 100%);
+  background: linear-gradient(90deg, #1890ff 0%, #13c2c2 50%, #12b5c9 100%);
   color: white;
   padding: 0 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(24, 144, 255, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08);
   flex-shrink: 0;
   position: relative;
   z-index: 100;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeInDown 0.6s var(--transition-normal);
 }
 
 .header-left {
@@ -20,8 +23,13 @@
 
 .logo {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #ffffff 0%, #e8f4f8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: float 6s ease-in-out infinite;
 }
 
 .header-right {
@@ -35,24 +43,48 @@
   align-items: center;
   gap: 12px;
   cursor: pointer;
-  padding: 6px 12px;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all var(--transition-fast);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .user-info:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .username {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .avatar {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
   padding: 4px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all var(--transition-fast);
+}
+
+.avatar:hover {
+  transform: scale(1.05) rotate(5deg);
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }

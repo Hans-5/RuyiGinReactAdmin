@@ -3,6 +3,8 @@
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  background-color: var(--background-color);
-  padding: 24px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  background-attachment: fixed;
+  padding: 28px;
+  scroll-behavior: smooth;
 }
