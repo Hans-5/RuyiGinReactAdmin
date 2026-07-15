@@ -7,14 +7,8 @@
 ---
 
 ## Screenshots
+<img width="1919" height="945" alt="Screenshot 2026-07-16 005352" src="https://github.com/user-attachments/assets/0fad1bc5-34e1-4990-9ba5-b3245cee6b76" />
 
-![Dashboard](docs/screenshots/01-dashboard.png)
-
-![User Management](docs/screenshots/02-user-management.png)
-
-![Analytics](docs/screenshots/03-analytics.png)
-
-![CRUD Modal](docs/screenshots/04-crud-modal.png)
 
 ---
 
