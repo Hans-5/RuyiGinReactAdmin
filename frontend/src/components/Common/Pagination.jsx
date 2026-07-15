@@ -7,7 +7,7 @@ import './Pagination.css'
  * onChange: (newPage) => void
  */
 export default function Pagination({ page, pageCount, total, pageSize, onChange }) {
-  if (pageCount <= 1 && total === 0) return null
+  if (pageCount <= 1) return null
 
   const start = total === 0 ? 0 : (page - 1) * pageSize + 1
   const end   = Math.min(page * pageSize, total)

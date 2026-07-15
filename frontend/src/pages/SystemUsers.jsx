@@ -8,20 +8,8 @@ import Pagination from '../components/Common/Pagination'
 import FormModal from '../components/Common/FormModal'
 import UserForm from './UserForm'
 import { useUsers } from '../hooks/useUsers'
+import { ROLE_FILTER_OPTIONS, STATUS_FILTER_OPTIONS, STATUS_BADGE_VARIANT } from '../config/userConstants'
 import './SystemUsers.css'
-
-const ROLE_FILTERS = [
-  { value: 'admin',  label: 'Admin'  },
-  { value: 'editor', label: 'Editor' },
-  { value: 'viewer', label: 'Viewer' },
-]
-const STATUS_FILTERS = [
-  { value: 'active',    label: 'Active'    },
-  { value: 'inactive',  label: 'Inactive'  },
-  { value: 'suspended', label: 'Suspended' },
-]
-
-const STATUS_VARIANT = { active: 'success', inactive: 'default', suspended: 'error' }
 
 export default function SystemUsers() {
   const formRef = useRef()
@@ -50,7 +38,7 @@ export default function SystemUsers() {
       render: v => <Badge variant="info" size="sm">{v}</Badge>
     },
     { key: 'status',    label: 'Status',
-      render: v => <Badge variant={STATUS_VARIANT[v] ?? 'default'} size="sm">{v}</Badge>
+      render: v => <Badge variant={STATUS_BADGE_VARIANT[v] ?? 'default'} size="sm">{v}</Badge>
     },
     { key: 'createdAt', label: 'Created', width: '110px' },
     { key: 'actions',   label: 'Actions', width: '120px',
@@ -81,8 +69,8 @@ export default function SystemUsers() {
         <SearchBar
           placeholder="Search by username or email…"
           filters={[
-            { key: 'role',   label: 'All roles',    options: ROLE_FILTERS },
-            { key: 'status', label: 'All statuses', options: STATUS_FILTERS },
+            { key: 'role',   label: 'All roles',    options: ROLE_FILTER_OPTIONS },
+            { key: 'status', label: 'All statuses', options: STATUS_FILTER_OPTIONS },
           ]}
           values={filters}
           onChange={setFilters}

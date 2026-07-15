@@ -1,8 +1,6 @@
 import { useState, useEffect, useImperativeHandle, forwardRef } from 'react'
+import { USER_ROLES, USER_STATUSES } from '../config/userConstants'
 import './UserForm.css'
-
-const ROLES    = ['admin', 'editor', 'viewer']
-const STATUSES = ['active', 'inactive', 'suspended']
 const EMPTY    = { username: '', email: '', role: 'viewer', status: 'active' }
 
 function validate(data) {
@@ -61,13 +59,13 @@ const UserForm = forwardRef(function UserForm({ initial, onSubmit }, ref) {
         <div className="form-field">
           <label>Role</label>
           <select value={data.role} onChange={set('role')}>
-            {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
+            {USER_ROLES.map(r => <option key={r} value={r}>{r}</option>)}
           </select>
         </div>
         <div className="form-field">
           <label>Status</label>
           <select value={data.status} onChange={set('status')}>
-            {STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
+            {USER_STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>
       </div>

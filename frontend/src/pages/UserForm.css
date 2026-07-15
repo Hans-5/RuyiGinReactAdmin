@@ -37,12 +37,12 @@
 
 .form-field input.error,
 .form-field select.error {
-  border-color: #ff4d4f;
+  border-color: var(--error-color);
 }
 
 .form-error {
   font-size: 12px;
-  color: #ff4d4f;
+  color: var(--error-color);
 }
 
 .form-row {
