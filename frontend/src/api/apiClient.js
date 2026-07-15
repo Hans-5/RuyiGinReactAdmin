@@ -12,14 +12,10 @@ import {
   generateChartData,
   generateActivitiesData,
   generateTableData,
-  generateUsersData,
-  createUserMock,
-  updateUserMock,
-  deleteUserMock,
-  generateArticlesData,
-  createArticleMock,
-  updateArticleMock,
-  deleteArticleMock,
+  generateUsersData,    createUserMock,    updateUserMock,    deleteUserMock,
+  generateArticlesData, createArticleMock, updateArticleMock, deleteArticleMock,
+  generateCategoriesData, createCategoryMock, updateCategoryMock, deleteCategoryMock,
+  generateTagsData,       createTagMock,      updateTagMock,      deleteTagMock,
 } from '../config/mockData'
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK !== 'false'
@@ -46,19 +42,27 @@ const MOCK_GET = {
   '/dashboard/table':       generateTableData,
   '/system/users':          generateUsersData,
   '/content/articles':      generateArticlesData,
+  '/content/categories':    generateCategoriesData,
+  '/content/tags':          generateTagsData,
 }
 
 const MOCK_POST   = {
-  '/system/users':     (_id, body) => createUserMock(body),
-  '/content/articles': (_id, body) => createArticleMock(body),
+  '/system/users':        (_id, body) => createUserMock(body),
+  '/content/articles':    (_id, body) => createArticleMock(body),
+  '/content/categories':  (_id, body) => createCategoryMock(body),
+  '/content/tags':        (_id, body) => createTagMock(body),
 }
 const MOCK_PUT    = {
-  '/system/users/:id':     (id, body) => updateUserMock(id, body),
-  '/content/articles/:id': (id, body) => updateArticleMock(id, body),
+  '/system/users/:id':        (id, body) => updateUserMock(id, body),
+  '/content/articles/:id':    (id, body) => updateArticleMock(id, body),
+  '/content/categories/:id':  (id, body) => updateCategoryMock(id, body),
+  '/content/tags/:id':        (id, body) => updateTagMock(id, body),
 }
 const MOCK_DELETE = {
-  '/system/users/:id':     (id) => deleteUserMock(id),
-  '/content/articles/:id': (id) => deleteArticleMock(id),
+  '/system/users/:id':        (id) => deleteUserMock(id),
+  '/content/articles/:id':    (id) => deleteArticleMock(id),
+  '/content/categories/:id':  (id) => deleteCategoryMock(id),
+  '/content/tags/:id':        (id) => deleteTagMock(id),
 }
 
 // ── Public API ────────────────────────────────────────────────────────────────

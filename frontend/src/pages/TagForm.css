@@ -1,0 +1,2 @@
+@import '../assets/forms.css';
+.tag-form { display: flex; flex-direction: column; gap: 16px; }

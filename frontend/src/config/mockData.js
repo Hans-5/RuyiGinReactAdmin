@@ -179,3 +179,95 @@ export const deleteArticleMock = (id) => {
   _articles = _articles.filter(a => a.id !== id)
   return { id }
 }
+
+// ── Content Categories ────────────────────────────────────────────────────────
+
+const CATEGORY_NAMES = [
+  'Technology', 'Business', 'Design', 'Tutorial', 'News',
+  'Science', 'Health', 'Finance', 'Travel', 'Culture',
+]
+
+let _categories = CATEGORY_NAMES.map((name, i) => ({
+  id:          i + 1,
+  name,
+  slug:        name.toLowerCase(),
+  description: `${name} related articles and posts.`,
+  status:      i % 5 === 0 ? 'inactive' : 'active',
+  articleCount: Math.floor(Math.random() * 20 + 1),
+  createdAt:   `2024-0${(i % 9) + 1}-01`,
+}))
+let _nextCategoryId = _categories.length + 1
+
+export const generateCategoriesData = () => _categories.map(c => ({ ...c }))
+
+export const createCategoryMock = (data) => {
+  const cat = {
+    id:          _nextCategoryId++,
+    name:        data.name,
+    slug:        (data.name || '').toLowerCase().replace(/\s+/g, '-'),
+    description: data.description || '',
+    status:      data.status || 'active',
+    articleCount: 0,
+    createdAt:   new Date().toISOString().slice(0, 10),
+  }
+  _categories = [..._categories, cat]
+  return { ...cat }
+}
+
+export const updateCategoryMock = (id, data) => {
+  _categories = _categories.map(c => c.id === id ? { ...c, ...data } : c)
+  const updated = _categories.find(c => c.id === id)
+  if (!updated) throw new Error(`Category ${id} not found`)
+  return { ...updated }
+}
+
+export const deleteCategoryMock = (id) => {
+  const exists = _categories.some(c => c.id === id)
+  if (!exists) throw new Error(`Category ${id} not found`)
+  _categories = _categories.filter(c => c.id !== id)
+  return { id }
+}
+
+// ── Content Tags ──────────────────────────────────────────────────────────────
+
+const TAG_NAMES = [
+  'react', 'golang', 'javascript', 'css', 'api', 'devops',
+  'database', 'security', 'performance', 'testing', 'typescript', 'docker',
+]
+
+let _tags = TAG_NAMES.map((name, i) => ({
+  id:          i + 1,
+  name,
+  slug:        name,
+  articleCount: Math.floor(Math.random() * 15 + 1),
+  createdAt:   `2024-0${(i % 9) + 1}-01`,
+}))
+let _nextTagId = _tags.length + 1
+
+export const generateTagsData = () => _tags.map(t => ({ ...t }))
+
+export const createTagMock = (data) => {
+  const tag = {
+    id:          _nextTagId++,
+    name:        data.name,
+    slug:        (data.name || '').toLowerCase().replace(/\s+/g, '-'),
+    articleCount: 0,
+    createdAt:   new Date().toISOString().slice(0, 10),
+  }
+  _tags = [..._tags, tag]
+  return { ...tag }
+}
+
+export const updateTagMock = (id, data) => {
+  _tags = _tags.map(t => t.id === id ? { ...t, ...data } : t)
+  const updated = _tags.find(t => t.id === id)
+  if (!updated) throw new Error(`Tag ${id} not found`)
+  return { ...updated }
+}
+
+export const deleteTagMock = (id) => {
+  const exists = _tags.some(t => t.id === id)
+  if (!exists) throw new Error(`Tag ${id} not found`)
+  _tags = _tags.filter(t => t.id !== id)
+  return { id }
+}
