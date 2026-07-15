@@ -131,6 +131,13 @@
   padding-left: 54px;
 }
 
+.submenu-item.active {
+  background-color: rgba(24, 144, 255, 0.25);
+  color: white;
+  border-left-color: var(--primary-color);
+  padding-left: 54px;
+}
+
 /* Scrollbar for sidebar */
 .sidebar::-webkit-scrollbar {
   width: 6px;
