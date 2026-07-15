@@ -141,20 +141,23 @@ import Badge from './components/Common/Badge'
 
 ## 🎨 Theme System
 
-All design tokens are CSS variables in `frontend/src/App.css`:
+All design tokens are CSS variables in **`frontend/src/assets/theme.css`** — the single theming entry point:
 
 ```css
 :root {
   --primary-color: #1890ff;
   --secondary-color: #13c2c2;
   --accent-color: #faad14;
-  --glass-bg: rgba(255, 255, 255, 0.08);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --shadow-lg: 0 16px 40px rgba(24, 74, 140, 0.16);
   --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* ... 17 tokens total */
 }
 ```
 
-Customize by editing these variables.
+To rebrand: edit `assets/theme.css` only. Component CSS files reference tokens via `var(--token-name)`, so all visual changes cascade automatically.
+
+Also mirror `primaryColor` in `config/app.js` if you change `--primary-color`.
 
 ---
 
@@ -181,25 +184,152 @@ Customize by editing these variables.
 
 ---
 
-## 🔧 Creating a New Page
+## 🏗️ Architecture Overview
 
-1. Create page file in `frontend/src/pages/`:
+```
+src/
+├── assets/theme.css          ← CSS design tokens (:root vars) — theming entry point
+├── api/apiClient.js          ← Mock/real API toggle — only file that knows the difference
+├── config/
+│   ├── app.js                ← App identity (name, version, branding)
+│   ├── navigation.js         ← Sidebar menu structure
+│   └── mockData.js           ← Mock data generators (mirrors real API shape)
+├── hooks/
+│   ├── useMenu.js            ← Sidebar expand/collapse state
+│   ├── useApiData.js         ← Data fetching with loading/error state
+│   └── index.js              ← Barrel — import { useMenu, useApiData } from '../hooks'
+├── layouts/
+│   └── AdminLayout.jsx       ← Shell layout route (Header + Sidebar + Outlet)
+├── components/
+│   ├── Common/               ← Reusable UI primitives (Card, StatCard, Badge, PageHeader)
+│   ├── Header.jsx            ← Top bar — reads title/user from config/app.js
+│   ├── Sidebar.jsx           ← Left nav — driven by config/navigation.js
+│   └── MainContent.jsx       ← Scrollable content wrapper
+└── pages/                    ← One file per route
+    ├── Dashboard.jsx         ← Full implementation
+    └── System|Content|...    ← Stubs — replace with real content
+```
+
+**Data flow:** page calls `useApiData(endpoint)` → hook calls `apiClient.getData()` → client checks `VITE_USE_MOCK` → returns mock generator result or real `fetch()`. Pages never change when the toggle flips.
+
+**Routing:** `App.jsx` declares a single `<Route element={<AdminLayout />}>` layout route. All page routes are children. `AdminLayout` renders `<Outlet />` where child pages appear.
+
+---
+
+## 🔧 How to Add a New Page
+
+**1. Create the page component** in `src/pages/`:
+
 ```jsx
-export default function MyPage() {
+// src/pages/Reports.jsx
+import PageHeader from '../components/Common/PageHeader'
+import Card from '../components/Common/Card'
+import { useApiData } from '../hooks'
+
+export default function Reports() {
+  const { data, loading } = useApiData('/reports/summary')
   return (
-    <div className="my-page">
-      <h1>My Page</h1>
-      {/* Use reusable components */}
+    <div>
+      <PageHeader title="Reports" subtitle="System usage reports." />
+      <Card title="Summary">
+        {loading ? 'Loading…' : JSON.stringify(data)}
+      </Card>
     </div>
   )
 }
 ```
 
-2. Import in `App.jsx` and add route
+**2. Register the route** in `src/App.jsx`:
 
-3. Use existing components: `Card`, `StatCard`, `Badge`
+```jsx
+import Reports from './pages/Reports'
 
-4. Styling follows the glassmorphism pattern
+// Inside <Route element={<AdminLayout />}>:
+<Route path="/reports" element={<Reports />} />
+```
+
+**3. Add the menu entry** in `src/config/navigation.js`:
+
+```js
+{ id: 'reports', label: 'Reports', icon: '📋', path: '/reports', submenu: [] }
+```
+
+**4. Register a mock endpoint** (if using mock data) in `src/api/apiClient.js`:
+
+```js
+import { generateReportsData } from '../config/mockData'
+// Add to MOCK:
+'/reports/summary': generateReportsData,
+```
+
+That's it. The sidebar highlights automatically when the URL matches.
+
+---
+
+## 🧩 How to Add Navigation Items
+
+Edit `src/config/navigation.js`. Each item supports an optional `submenu` array:
+
+```js
+export const navigationConfig = [
+  // Leaf item (no submenu)
+  { id: 'reports', label: 'Reports', icon: '📋', path: '/reports', submenu: [] },
+
+  // Group with submenu
+  {
+    id: 'finance',
+    label: 'Finance',
+    icon: '💳',
+    path: '/finance',
+    submenu: [
+      { id: 'invoices',  label: 'Invoices',  path: '/finance/invoices' },
+      { id: 'expenses',  label: 'Expenses',  path: '/finance/expenses' },
+    ]
+  },
+]
+```
+
+The Sidebar component renders this config automatically — no changes to `Sidebar.jsx` are needed.
+
+---
+
+## 🧱 How to Create a Reusable Component
+
+Place shared UI primitives in `src/components/Common/`. Each component gets its own `.jsx` + `.css` pair.
+
+```jsx
+// src/components/Common/StatusDot.jsx
+import './StatusDot.css'
+
+export default function StatusDot({ status = 'idle' }) {
+  return <span className={`status-dot status-dot--${status}`} />
+}
+```
+
+```css
+/* src/components/Common/StatusDot.css */
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.status-dot--active  { background: var(--secondary-color); }
+.status-dot--idle    { background: var(--border-color); }
+.status-dot--error   { background: #ff4d4f; }
+```
+
+Use CSS variables from `assets/theme.css` for colors — never hardcode hex values in component CSS.
+
+---
+
+## 🔧 Creating a New Page (legacy section — see above for full guide)
+
+Quick reference:
+
+1. Create `src/pages/MyPage.jsx` using `PageHeader` + `Card` components
+2. Add `<Route path="/my-page" element={<MyPage />} />` inside the layout route in `App.jsx`
+3. Add menu entry to `src/config/navigation.js`
 
 ---
 
@@ -252,7 +382,7 @@ When reusing this template for a new project:
 2. **Update navigation** in `src/config/navigation.js` with your menu items
 3. **Replace mock data** in `src/config/mockData.js` with your data shape, then set `VITE_USE_MOCK=false` and point `VITE_API_BASE` at your backend
 4. **Create new pages** using existing components, add routes in `App.jsx`
-5. **Customize colors** in `App.css` CSS variables
+5. **Customize colors** in `src/assets/theme.css` (CSS variables) and `src/config/app.js` (app name, branding)
 6. **Build your backend** (Gin or any other) to match the API endpoints in `src/api/apiClient.js`
 
 ---
@@ -270,7 +400,7 @@ Pages and hooks need no changes — `useApiData('/dashboard/stats')` works the s
 
 ```jsx
 // Any page — works with mock or real backend
-import { useApiData } from '../hooks/useCommon'
+import { useApiData } from '../hooks'
 
 const { data: stats, loading } = useApiData('/dashboard/stats')
 ```
@@ -321,9 +451,10 @@ cd backend
 
 ## 📄 Documentation Files
 
-- `DESIGN_OPTIMIZATION_PLAN.md` - Modern UI design decisions
-- `COMPONENTIZATION_PLAN.md` - Component architecture strategy
-- `frontend/src/App.css` - Theme variables & global animations
+- `DESIGN_OPTIMIZATION_PLAN.md` — Modern UI design decisions
+- `COMPONENTIZATION_PLAN.md` — Component architecture strategy
+- `frontend/src/assets/theme.css` — All CSS design tokens (theming entry point)
+- `frontend/.env.example` — Environment variable reference
 
 ---
 
