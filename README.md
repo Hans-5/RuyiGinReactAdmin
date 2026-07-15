@@ -2,6 +2,20 @@
 
 > A reusable React + Vite admin dashboard template with glassmorphism design, full CRUD patterns, and a clean mock-to-real-API seam.
 
+**[English](#english) | [中文](#中文)**
+
+---
+
+## Screenshots
+
+![Dashboard](docs/screenshots/01-dashboard.png)
+
+![User Management](docs/screenshots/02-user-management.png)
+
+![Analytics](docs/screenshots/03-analytics.png)
+
+![CRUD Modal](docs/screenshots/04-crud-modal.png)
+
 ---
 
 ## English
