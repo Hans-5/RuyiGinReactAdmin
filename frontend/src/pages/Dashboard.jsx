@@ -2,7 +2,7 @@ import './Dashboard.css'
 import Card from '../components/Common/Card'
 import StatCard from '../components/Common/StatCard'
 import Badge from '../components/Common/Badge'
-import { useApiData } from '../hooks/useCommon'
+import { useApiData } from '../hooks'
 
 export default function Dashboard() {
   // All data flows through the API client (mock now, real backend later).

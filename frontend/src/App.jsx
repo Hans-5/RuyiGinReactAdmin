@@ -6,6 +6,7 @@ import System from './pages/System'
 import Content from './pages/Content'
 import Analytics from './pages/Analytics'
 import Settings from './pages/Settings'
+import NotFound from './pages/NotFound'
 
 // AdminLayout is a layout route — it renders the shell (header + sidebar)
 // and injects the matched child via <Outlet />. Add new pages as child routes.
@@ -19,6 +20,7 @@ function App() {
         <Route path="/content/*" element={<Content />} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   )

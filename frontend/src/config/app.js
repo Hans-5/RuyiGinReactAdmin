@@ -19,6 +19,11 @@ export const appConfig = {
   /** Default username shown in the header before auth is wired up. */
   defaultUser: 'Admin',
 
-  /** Primary brand color — mirrors --primary-color in App.css. */
+  /**
+   * Primary brand color — metadata only.
+   * This value is NOT injected into CSS at runtime.
+   * To change the UI color, edit --primary-color in assets/theme.css.
+   * Keep this in sync with that variable manually.
+   */
   primaryColor: '#1890ff',
 }

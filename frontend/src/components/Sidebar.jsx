@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useMenu } from '../hooks/useCommon'
+import { useMenu } from '../hooks'
 import { navigationConfig } from '../config/navigation'
 import './Sidebar.css'
 
