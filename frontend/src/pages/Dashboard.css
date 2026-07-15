@@ -1,3 +1,5 @@
+@import '../assets/tables.css';
+
 .dashboard {
   display: flex;
   flex-direction: column;
@@ -148,39 +150,3 @@
   font-weight: 500;
 }
 
-/* Table */
-.simple-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.simple-table thead {
-  border-bottom: 2px solid rgba(24, 144, 255, 0.1);
-}
-
-.simple-table th {
-  padding: 14px 16px;
-  text-align: left;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-secondary);
-  background: linear-gradient(135deg, rgba(24, 144, 255, 0.05), rgba(19, 194, 194, 0.02));
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-
-.simple-table td {
-  padding: 14px 16px;
-  border-bottom: 1px solid rgba(24, 144, 255, 0.08);
-  font-size: 13px;
-  color: var(--text-primary);
-  font-weight: 500;
-}
-
-.simple-table tbody tr {
-  transition: all var(--transition-fast);
-}
-
-.simple-table tbody tr:hover {
-  background: rgba(24, 144, 255, 0.05);
-}

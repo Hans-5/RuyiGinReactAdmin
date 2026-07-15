@@ -1,0 +1,25 @@
+@import '../assets/forms.css';
+
+/* RoleForm permission grid */
+.perm-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.perm-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.perm-item input[type="checkbox"] {
+  accent-color: var(--primary-color);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}

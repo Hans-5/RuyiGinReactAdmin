@@ -1,0 +1,15 @@
+.role-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.perm-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.action-btns {
+  display: flex;
+  gap: 6px;
+}

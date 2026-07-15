@@ -1,0 +1,155 @@
+@import '../assets/tables.css';
+
+.analytics {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Reuse dashboard stats grid */
+.analytics .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.analytics-charts {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 16px;
+}
+
+/* ── Dual bar chart ────────────────────────────────────────────────────────── */
+
+.dual-bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dual-bar-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.dual-bar-labels {
+  width: 28px;
+  text-align: center;
+}
+
+.bar-week {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.dual-bar-tracks {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dual-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dual-bar-legend {
+  font-size: 11px;
+  width: 42px;
+  color: var(--text-secondary);
+}
+
+.visits-legend { color: var(--primary-color); }
+.unique-legend { color: var(--secondary-color); }
+
+.dual-bar-bg {
+  flex: 1;
+  height: 10px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.dual-bar {
+  height: 100%;
+  border-radius: 5px;
+  transition: width var(--transition-normal);
+}
+
+.visits-bar { background: var(--primary-color); }
+.unique-bar { background: var(--secondary-color); }
+
+.dual-bar-val {
+  font-size: 11px;
+  color: var(--text-secondary);
+  width: 32px;
+  text-align: right;
+}
+
+/* ── Device breakdown ─────────────────────────────────────────────────────── */
+
+.device-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 8px 0;
+}
+
+.device-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.device-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 76px;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.device-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.device-track {
+  flex: 1;
+  height: 12px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.device-bar {
+  height: 100%;
+  border-radius: 6px;
+  transition: width var(--transition-normal);
+}
+
+.device-pct {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  width: 36px;
+  text-align: right;
+}
+
+/* ── Top pages table ──────────────────────────────────────────────────────── */
+
+.page-path {
+  font-size: 13px;
+  color: var(--primary-color);
+  background: rgba(24, 144, 255, 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+}

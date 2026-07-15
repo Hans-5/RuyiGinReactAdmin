@@ -271,3 +271,80 @@ export const deleteTagMock = (id) => {
   _tags = _tags.filter(t => t.id !== id)
   return { id }
 }
+
+// ── Roles ─────────────────────────────────────────────────────────────────────
+
+const ROLE_PERMS = {
+  'Super Admin':    ['user:*', 'content:*', 'system:*'],
+  'Admin':          ['user:read', 'user:write', 'content:*'],
+  'Editor':         ['content:read', 'content:write'],
+  'Viewer':         ['content:read'],
+  'Support':        ['user:read', 'content:read'],
+}
+
+let _roles = [
+  { id: 1, name: 'Super Admin', description: 'Full system access',           userCount: 2,  permissions: ROLE_PERMS['Super Admin'],  createdAt: '2024-01-01' },
+  { id: 2, name: 'Admin',       description: 'Administrative access',        userCount: 5,  permissions: ROLE_PERMS['Admin'],         createdAt: '2024-01-01' },
+  { id: 3, name: 'Editor',      description: 'Content creation and editing', userCount: 12, permissions: ROLE_PERMS['Editor'],        createdAt: '2024-02-15' },
+  { id: 4, name: 'Viewer',      description: 'Read-only access',             userCount: 34, permissions: ROLE_PERMS['Viewer'],        createdAt: '2024-03-01' },
+  { id: 5, name: 'Support',     description: 'Customer support access',      userCount: 8,  permissions: ROLE_PERMS['Support'],       createdAt: '2024-04-10' },
+]
+let _nextRoleId = _roles.length + 1
+
+export const generateRolesData  = () => _roles.map(r => ({ ...r }))
+
+export const createRoleMock = (data) => {
+  const role = { id: _nextRoleId++, name: data.name, description: data.description || '', userCount: 0, permissions: data.permissions || [], createdAt: new Date().toISOString().slice(0, 10) }
+  _roles = [..._roles, role]
+  return { ...role }
+}
+
+export const updateRoleMock = (id, data) => {
+  _roles = _roles.map(r => r.id === id ? { ...r, ...data } : r)
+  const updated = _roles.find(r => r.id === id)
+  if (!updated) throw new Error(`Role ${id} not found`)
+  return { ...updated }
+}
+
+export const deleteRoleMock = (id) => {
+  const role = _roles.find(r => r.id === id)
+  if (!role) throw new Error(`Role ${id} not found`)
+  if (role.name === 'Super Admin') throw new Error('Cannot delete Super Admin role')
+  _roles = _roles.filter(r => r.id !== id)
+  return { id }
+}
+
+// ── Analytics ─────────────────────────────────────────────────────────────────
+
+export const generateAnalyticsOverview = () => [
+  { title: 'Total Visits',     value: '128,450', change: '+18%', icon: '🌐', color: '#1890ff' },
+  { title: 'Unique Visitors',  value: '84,230',  change: '+12%', icon: '👤', color: '#13c2c2' },
+  { title: 'Avg. Session',     value: '3m 47s',  change: '+8%',  icon: '⏱️', color: '#faad14' },
+  { title: 'Bounce Rate',      value: '38.2%',   change: '-5%',  icon: '↩️', color: '#52c41a' },
+]
+
+export const generateTrafficData = () => [
+  { week: 'W1',  visits: 18200, unique: 12400 },
+  { week: 'W2',  visits: 21500, unique: 14300 },
+  { week: 'W3',  visits: 19800, unique: 13100 },
+  { week: 'W4',  visits: 24600, unique: 16200 },
+  { week: 'W5',  visits: 22100, unique: 14900 },
+  { week: 'W6',  visits: 28400, unique: 18700 },
+  { week: 'W7',  visits: 26300, unique: 17500 },
+  { week: 'W8',  visits: 31200, unique: 20600 },
+]
+
+export const generateDeviceData = () => [
+  { device: 'Desktop', pct: 52, color: '#1890ff' },
+  { device: 'Mobile',  pct: 35, color: '#13c2c2' },
+  { device: 'Tablet',  pct: 13, color: '#faad14' },
+]
+
+export const generateTopPages = () => [
+  { path: '/home',         views: 34200, bounce: '28%', avgTime: '4m 12s' },
+  { path: '/products',     views: 21800, bounce: '34%', avgTime: '3m 08s' },
+  { path: '/blog',         views: 18400, bounce: '41%', avgTime: '5m 22s' },
+  { path: '/pricing',      views: 14600, bounce: '22%', avgTime: '2m 47s' },
+  { path: '/contact',      views:  9200, bounce: '55%', avgTime: '1m 35s' },
+]
+

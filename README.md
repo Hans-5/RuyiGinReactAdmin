@@ -8,19 +8,26 @@ A modern, component-based admin management system built with React and Gin frame
 
 ## 📍 Current Status
 
-**Phase 1 complete — frontend routing scaffold.**
+**MVP complete — fully navigable frontend template.**
 
 | Area | Status |
 |---|---|
-| React frontend (Vite) | ✅ Running |
-| Client-side routing (React Router v6) | ✅ All 5 routes wired |
-| Dashboard page | ✅ Full implementation with mock data |
-| System / Content / Analytics / Settings | 🚧 Navigable stubs |
-| Mock → real API toggle | ✅ Ready (`VITE_USE_MOCK=false`) |
-| Go/Gin backend | ⬜ Not started |
-| Authentication | ⬜ Not started |
+| React frontend (Vite + React Router v6) | ✅ Complete |
+| Dashboard — KPI cards, bar chart, activity feed, table | ✅ Complete |
+| System / User Management — CRUD, search, filter, pagination, modals | ✅ Complete |
+| System / Role Management — CRUD, permission checkboxes | ✅ Complete |
+| Content / Articles — CRUD, status, category filter | ✅ Complete |
+| Content / Categories — CRUD | ✅ Complete |
+| Content / Tags — CRUD | ✅ Complete |
+| Analytics — traffic charts, device breakdown, top pages | ✅ Complete |
+| Settings — tabbed form (general, appearance, notifications) | ✅ Complete |
+| Mock → real API toggle (`VITE_USE_MOCK=false`) | ✅ Ready |
+| App config layer (`config/app.js`) | ✅ Complete |
+| Reusable component library (Card, StatCard, Badge, DataTable, FormModal, Pagination, SearchBar, PageHeader) | ✅ Complete |
+| Go/Gin backend | ⬜ Not started (out of scope for template) |
+| Authentication | ⬜ Not started (out of scope for template) |
 
----
+
 
 ## 🎨 Design Features
 
