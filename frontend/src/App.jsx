@@ -7,20 +7,20 @@ import Content from './pages/Content'
 import Analytics from './pages/Analytics'
 import Settings from './pages/Settings'
 
-// Every page renders inside the same AdminLayout shell.
-// Add new routes here as the template grows.
+// AdminLayout is a layout route — it renders the shell (header + sidebar)
+// and injects the matched child via <Outlet />. Add new pages as child routes.
 function App() {
   return (
-    <AdminLayout>
-      <Routes>
+    <Routes>
+      <Route element={<AdminLayout />}>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/system/*" element={<System />} />
         <Route path="/content/*" element={<Content />} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/settings" element={<Settings />} />
-      </Routes>
-    </AdminLayout>
+      </Route>
+    </Routes>
   )
 }
 
