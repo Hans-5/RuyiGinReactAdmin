@@ -1,5 +1,7 @@
 # ✅ PROJECT COMPLETE: Polish & Reusability Phase
 
+> **Current project state (updated):** This document covers the Polish & Reusability phase (frontend template scaffold). As of Phase 1 productization, React Router v6 has been added and all 5 navigation routes are wired. The project is a **frontend-only template** — no Go/Gin backend, no authentication, and only the Dashboard page has full content. The remaining pages (System, Content, Analytics, Settings) are navigable stubs. See README.md for the current file structure.
+
 ## Executive Summary
 
 Successfully transformed the RuyiGinReactAdmin from **functional** to **polished** and **reusable** through systematic 3-phase execution:
@@ -54,10 +56,9 @@ Successfully transformed the RuyiGinReactAdmin from **functional** to **polished
 - `config/mockData.js` - Data generators (replace with API calls)
 
 **Hooks Layer:**
-- `hooks/useCommon.js` - 3 reusable hooks:
-  - `useMenu()` - Menu state management
-  - `useMockData()` - Data loading pattern
-  - `useTheme()` - Future theme switching
+- `hooks/useCommon.js` - 2 reusable hooks:
+  - `useMenu()` - Menu state management (sidebar expand/collapse)
+  - `useApiData()` - Data loading with loading/error state; works with mock or real backend
 
 **Layout Layer:**
 - `layouts/AdminLayout.jsx` - Header + Sidebar + Content wrapper
@@ -81,7 +82,7 @@ Successfully transformed the RuyiGinReactAdmin from **functional** to **polished
 | Code duplication | ~80% | ~50% | **-37.5%** |
 | Hardcoded data | 100% | 0% | **✅ Removed** |
 | Config-driven | No | Yes | **New pattern** |
-| Custom hooks | 0 | 3 | **New ecosystem** |
+| Custom hooks | 0 | 2 | `useMenu` + `useApiData` |
 | Reusable layouts | No | Yes | **New pattern** |
 | Lines in Sidebar | 82 | 27 | **-67% cleaner** |
 | Lines in Dashboard | 135 | 60 | **-56% cleaner** |
@@ -134,8 +135,8 @@ export const generateStatsData = async () => {
 
 ```jsx
 // hooks/useCommon.js - Reusable logic
-const { expandedMenu, toggleMenu } = useMenu('dashboard')
-const { data, loading, error } = useMockData(generateStatsData, [])
+const { expandedMenu, toggleMenu } = useMenu()
+const { data, loading, error } = useApiData('/dashboard/stats')
 ```
 
 ### Pattern 4: Layout Composition

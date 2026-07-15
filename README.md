@@ -6,6 +6,22 @@ A modern, component-based admin management system built with React and Gin frame
 
 ---
 
+## 📍 Current Status
+
+**Phase 1 complete — frontend routing scaffold.**
+
+| Area | Status |
+|---|---|
+| React frontend (Vite) | ✅ Running |
+| Client-side routing (React Router v6) | ✅ All 5 routes wired |
+| Dashboard page | ✅ Full implementation with mock data |
+| System / Content / Analytics / Settings | 🚧 Navigable stubs |
+| Mock → real API toggle | ✅ Ready (`VITE_USE_MOCK=false`) |
+| Go/Gin backend | ⬜ Not started |
+| Authentication | ⬜ Not started |
+
+---
+
 ## 🎨 Design Features
 
 - **Glassmorphism UI**: Modern frosted glass effect with backdrop blur
@@ -22,26 +38,37 @@ A modern, component-based admin management system built with React and Gin frame
 RuyiGinReactAdmin/
 ├── frontend/                 # React frontend
 │   ├── src/
+│   │   ├── api/
+│   │   │   └── apiClient.js             # Mock/real API toggle (VITE_USE_MOCK)
 │   │   ├── components/
 │   │   │   ├── Common/
 │   │   │   │   ├── Card.jsx             # Reusable glass card
 │   │   │   │   ├── StatCard.jsx         # KPI metrics card
 │   │   │   │   └── Badge.jsx            # Status badge
-│   │   │   ├── Header/
-│   │   │   │   └── Header.jsx           # Top header with gradient
-│   │   │   ├── Sidebar/
-│   │   │   │   └── Sidebar.jsx          # Left navigation menu
-│   │   │   └── MainContent/
-│   │   │       └── MainContent.jsx      # Content area wrapper
+│   │   │   ├── Header.jsx               # Top header with gradient
+│   │   │   ├── Sidebar.jsx              # Left navigation menu
+│   │   │   └── MainContent.jsx          # Content area wrapper
+│   │   ├── config/
+│   │   │   ├── navigation.js            # Sidebar menu structure
+│   │   │   └── mockData.js              # Mock data generators
+│   │   ├── hooks/
+│   │   │   └── useCommon.js             # useMenu + useApiData
+│   │   ├── layouts/
+│   │   │   └── AdminLayout.jsx          # Header + Sidebar + Content wrapper
 │   │   ├── pages/
-│   │   │   └── Dashboard.jsx            # Dashboard demo page
-│   │   ├── App.jsx                      # Main app component
+│   │   │   ├── Dashboard.jsx            # Dashboard (full implementation)
+│   │   │   ├── System.jsx               # System Management (stub)
+│   │   │   ├── Content.jsx              # Content Management (stub)
+│   │   │   ├── Analytics.jsx            # Analytics (stub)
+│   │   │   ├── Settings.jsx             # Settings (stub)
+│   │   │   └── StubPage.css             # Shared stub page styles
+│   │   ├── App.jsx                      # Routes + AdminLayout composition
 │   │   ├── App.css                      # Global styles + theme vars
-│   │   └── main.jsx                     # Entry point
+│   │   └── main.jsx                     # Entry point (BrowserRouter)
+│   ├── .env.example                     # Environment variable reference
 │   ├── package.json
 │   ├── vite.config.js
 │   └── index.html
-├── backend/                  # Gin backend (placeholder)
 ├── DESIGN_OPTIMIZATION_PLAN.md
 ├── COMPONENTIZATION_PLAN.md
 └── README.md
@@ -222,27 +249,30 @@ export default function MyPage() {
 When reusing this template for a new project:
 
 1. **Copy the frontend folder** to your new project
-2. **Update navigation** in `Sidebar.jsx` with your menu items
-3. **Replace mock data** in pages with real API calls
-4. **Create new pages** using existing components
+2. **Update navigation** in `src/config/navigation.js` with your menu items
+3. **Replace mock data** in `src/config/mockData.js` with your data shape, then set `VITE_USE_MOCK=false` and point `VITE_API_BASE` at your backend
+4. **Create new pages** using existing components, add routes in `App.jsx`
 5. **Customize colors** in `App.css` CSS variables
-6. **Build your backend** in the `backend/` folder (Gin)
+6. **Build your backend** (Gin or any other) to match the API endpoints in `src/api/apiClient.js`
 
 ---
 
-## 🔄 Mock Data Usage
+## 🔄 Mock / Real API
 
-Currently uses inline mock data. To integrate real APIs:
+All data flows through `src/api/apiClient.js`. By default it calls mock generators in `src/config/mockData.js`. To switch to a real backend, set environment variables in `.env.local`:
+
+```bash
+VITE_USE_MOCK=false
+VITE_API_BASE=http://localhost:8080/api
+```
+
+Pages and hooks need no changes — `useApiData('/dashboard/stats')` works the same way either side of the toggle.
 
 ```jsx
-// Replace this:
-const stats = [{ title: 'Users', value: '12,548', ... }]
+// Any page — works with mock or real backend
+import { useApiData } from '../hooks/useCommon'
 
-// With API call:
-const [stats, setStats] = useState([])
-useEffect(() => {
-  fetch('/api/stats').then(r => r.json()).then(setStats)
-}, [])
+const { data: stats, loading } = useApiData('/dashboard/stats')
 ```
 
 ---
@@ -250,8 +280,9 @@ useEffect(() => {
 ## 📦 Dependencies
 
 - **React**: 18.2.0
-- **Vite**: 5.4.21 (Build tool)
-- **No UI libraries**: All components built from scratch for maximum customization
+- **React Router DOM**: 6.30.4 (client-side routing)
+- **Vite**: 5.4.21 (build tool)
+- **No UI libraries**: all components built from scratch for maximum customization
 
 ---
 

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useMenu } from '../hooks/useCommon'
 import { navigationConfig } from '../config/navigation'
@@ -15,9 +16,13 @@ export default function Sidebar() {
   const navigate = useNavigate()
   const activeId = getActiveId(location.pathname)
 
-  // useMenu still controls submenu expand/collapse;
-  // initialise to whichever top-level item is currently active.
-  const { expandedMenu, toggleMenu } = useMenu(activeId)
+  // useMenu controls submenu expand/collapse; initialise to the active route.
+  const { expandedMenu, setExpandedMenu, toggleMenu } = useMenu(activeId)
+
+  // Keep expanded item in sync when the URL changes (browser back/forward).
+  useEffect(() => {
+    setExpandedMenu(activeId)
+  }, [activeId])
 
   const handleItemClick = (item) => {
     toggleMenu(item.id)
