@@ -1,0 +1,19 @@
+.content-articles {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.table-wrap {
+  margin: 16px 0 0;
+}
+
+.article-title {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.action-btns {
+  display: flex;
+  gap: 6px;
+}

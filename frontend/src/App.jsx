@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard'
 import System from './pages/System'
 import SystemUsers from './pages/SystemUsers'
 import Content from './pages/Content'
+import ContentArticles from './pages/ContentArticles'
 import Analytics from './pages/Analytics'
 import Settings from './pages/Settings'
 import NotFound from './pages/NotFound'
@@ -19,7 +20,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/system" element={<System />} />
         <Route path="/system/users" element={<SystemUsers />} />
-        <Route path="/content/*" element={<Content />} />
+        <Route path="/content" element={<Content />} />
+        <Route path="/content/articles" element={<ContentArticles />} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="*" element={<NotFound />} />

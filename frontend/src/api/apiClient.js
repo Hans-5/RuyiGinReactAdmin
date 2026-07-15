@@ -16,6 +16,10 @@ import {
   createUserMock,
   updateUserMock,
   deleteUserMock,
+  generateArticlesData,
+  createArticleMock,
+  updateArticleMock,
+  deleteArticleMock,
 } from '../config/mockData'
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK !== 'false'
@@ -41,13 +45,21 @@ const MOCK_GET = {
   '/dashboard/activities':  generateActivitiesData,
   '/dashboard/table':       generateTableData,
   '/system/users':          generateUsersData,
+  '/content/articles':      generateArticlesData,
 }
 
-// POST/PUT/DELETE: endpoint pattern → handler fn
-// Handlers receive (id, body) — id is null for POST.
-const MOCK_POST   = { '/system/users':          (_id, body) => createUserMock(body) }
-const MOCK_PUT    = { '/system/users/:id':       (id,  body) => updateUserMock(id, body) }
-const MOCK_DELETE = { '/system/users/:id':       (id)        => deleteUserMock(id) }
+const MOCK_POST   = {
+  '/system/users':     (_id, body) => createUserMock(body),
+  '/content/articles': (_id, body) => createArticleMock(body),
+}
+const MOCK_PUT    = {
+  '/system/users/:id':     (id, body) => updateUserMock(id, body),
+  '/content/articles/:id': (id, body) => updateArticleMock(id, body),
+}
+const MOCK_DELETE = {
+  '/system/users/:id':     (id) => deleteUserMock(id),
+  '/content/articles/:id': (id) => deleteArticleMock(id),
+}
 
 // ── Public API ────────────────────────────────────────────────────────────────
 

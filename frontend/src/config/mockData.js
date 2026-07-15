@@ -105,3 +105,77 @@ export const deleteUserMock = (id) => {
   _users = _users.filter(u => u.id !== id)
   return { id }
 }
+
+// ── Article Management ────────────────────────────────────────────────────────
+
+const CATEGORIES = ['technology', 'business', 'design', 'tutorial', 'news']
+const A_STATUSES = ['draft', 'published', 'archived']
+
+const TITLES = [
+  'Getting Started with React Hooks',
+  'Building Scalable APIs with Gin',
+  'Modern CSS Architecture Patterns',
+  'Introduction to TypeScript Generics',
+  'Deploying Go Applications to Production',
+  'State Management Without Redux',
+  'CSS Grid vs Flexbox: When to Use Each',
+  'Optimizing React Performance',
+  'REST vs GraphQL: A Practical Guide',
+  'Writing Clean JavaScript in 2024',
+  'Docker for Frontend Developers',
+  'Database Indexing Strategies',
+  'Authentication Best Practices',
+  'Micro-Frontend Architecture',
+  'Testing React Components with Vitest',
+]
+
+const AUTHORS = ['Alice Smith', 'Bob Johnson', 'Carol Williams', 'David Brown', 'Eva Garcia']
+
+function makeArticle(i) {
+  const month = String((i % 12) + 1).padStart(2, '0')
+  const day   = String((i % 28) + 1).padStart(2, '0')
+  return {
+    id:        i + 1,
+    title:     TITLES[i % TITLES.length],
+    summary:   `A comprehensive guide to ${TITLES[i % TITLES.length].toLowerCase()}.`,
+    category:  CATEGORIES[i % CATEGORIES.length],
+    author:    AUTHORS[i % AUTHORS.length],
+    status:    A_STATUSES[i % A_STATUSES.length],
+    content:   `This article covers ${TITLES[i % TITLES.length].toLowerCase()} in detail.\n\nContent goes here.`,
+    createdAt: `2024-${month}-${day}`,
+  }
+}
+
+let _articles = Array.from({ length: 30 }, (_, i) => makeArticle(i))
+let _nextArticleId = _articles.length + 1
+
+export const generateArticlesData = () => _articles.map(a => ({ ...a }))
+
+export const createArticleMock = (data) => {
+  const article = {
+    id:        _nextArticleId++,
+    title:     data.title,
+    summary:   data.summary   || '',
+    category:  data.category  || 'technology',
+    author:    data.author    || 'Admin',
+    status:    data.status    || 'draft',
+    content:   data.content   || '',
+    createdAt: new Date().toISOString().slice(0, 10),
+  }
+  _articles = [..._articles, article]
+  return { ...article }
+}
+
+export const updateArticleMock = (id, data) => {
+  _articles = _articles.map(a => a.id === id ? { ...a, ...data } : a)
+  const updated = _articles.find(a => a.id === id)
+  if (!updated) throw new Error(`Article ${id} not found`)
+  return { ...updated }
+}
+
+export const deleteArticleMock = (id) => {
+  const exists = _articles.some(a => a.id === id)
+  if (!exists) throw new Error(`Article ${id} not found`)
+  _articles = _articles.filter(a => a.id !== id)
+  return { id }
+}
