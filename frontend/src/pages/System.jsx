@@ -1,13 +1,11 @@
 import Card from '../components/Common/Card'
+import PageHeader from '../components/Common/PageHeader'
 import './StubPage.css'
 
 export default function System() {
   return (
     <div className="stub-page">
-      <div className="stub-page-header">
-        <h1>System Management</h1>
-        <p className="stub-page-subtitle">User accounts, roles, and permissions.</p>
-      </div>
+      <PageHeader title="System Management" subtitle="User accounts, roles, and permissions." />
       <div className="stub-sections">
         <Card title="User Management">
           <p className="stub-placeholder">User management module — coming soon.</p>

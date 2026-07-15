@@ -1,13 +1,11 @@
 import Card from '../components/Common/Card'
+import PageHeader from '../components/Common/PageHeader'
 import './StubPage.css'
 
 export default function Content() {
   return (
     <div className="stub-page">
-      <div className="stub-page-header">
-        <h1>Content Management</h1>
-        <p className="stub-page-subtitle">Articles, categories, and tags.</p>
-      </div>
+      <PageHeader title="Content Management" subtitle="Articles, categories, and tags." />
       <div className="stub-sections">
         <Card title="Articles">
           <p className="stub-placeholder">Articles module — coming soon.</p>

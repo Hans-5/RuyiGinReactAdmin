@@ -1,32 +1,10 @@
-/* Ruyi Guofeng Tech Blue Theme - Modern Enhanced */
-:root {
-  --primary-color: #1890ff;
-  --secondary-color: #13c2c2;
-  --accent-color: #faad14;
-  --background-color: #f5f7fa;
-  --surface-color: #ffffff;
-  --text-primary: #262626;
-  --text-secondary: #8c8c8c;
-  --border-color: #d9d9d9;
-  --hover-bg: #f6f7f9;
-  --header-height: 64px;
-  --sidebar-width: 256px;
-  
-  /* Modern enhancements — frosted glass tuned for a LIGHT backdrop.
-     Low-alpha white is invisible on light grey, so we use high-opacity
-     white + saturated blur to read as real frosted panels. */
-  --glass-bg: rgba(255, 255, 255, 0.72);
-  --glass-bg-light: rgba(255, 255, 255, 0.88);
-  --glass-blur: saturate(160%) blur(16px);
-  --glass-border: rgba(255, 255, 255, 0.9);
-  --shadow-sm: 0 4px 16px rgba(24, 74, 140, 0.08);
-  --shadow-md: 0 8px 28px rgba(24, 74, 140, 0.12);
-  --shadow-lg: 0 16px 40px rgba(24, 74, 140, 0.16);
-  --shadow-xl: 0 24px 56px rgba(24, 74, 140, 0.2);
-  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* Entry-point stylesheet.
+ *
+ * Responsibility: global reset, scrollbar, and shared animation keyframes.
+ * Theme tokens  → assets/theme.css
+ * Layout shell  → layouts/AdminLayout.css  (imported by AdminLayout.jsx)
+ */
+@import './assets/theme.css';
 
 * {
   margin: 0;
@@ -45,101 +23,43 @@ html, body {
   height: 100%;
 }
 
-.app-container {
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-  /* Soft tech-blue aurora so the frosted panels have color to refract. */
-  background:
-    radial-gradient(ellipse at 12% 0%, rgba(24, 144, 255, 0.18) 0%, transparent 45%),
-    radial-gradient(ellipse at 100% 15%, rgba(19, 194, 194, 0.16) 0%, transparent 45%),
-    radial-gradient(ellipse at 60% 100%, rgba(24, 144, 255, 0.1) 0%, transparent 50%),
-    linear-gradient(135deg, #eef3fb 0%, #e6ecf5 100%);
-  background-attachment: fixed;
-}
-
-.app-body {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
   background: rgba(189, 189, 189, 0.5);
   border-radius: 4px;
   backdrop-filter: blur(10px);
 }
+::-webkit-scrollbar-thumb:hover { background: rgba(140, 140, 140, 0.8); }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(140, 140, 140, 0.8);
-}
-
-/* Animations */
+/* Shared animation keyframes — used by component CSS files */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 20px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
+  from { opacity: 0; transform: translate3d(0, 20px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 @keyframes glow {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(24, 144, 255, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 0 10px rgba(24, 144, 255, 0);
-  }
+  0%, 100% { box-shadow: 0 0 0 0  rgba(24, 144, 255, 0.4); }
+  50%       { box-shadow: 0 0 0 10px rgba(24, 144, 255, 0); }
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
-  }
+  0%   { background-position: -1000px 0; }
+  100% { background-position:  1000px 0; }
 }
 
 @keyframes float {
-  0%, 100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -8px, 0);
-  }
+  0%, 100% { transform: translate3d(0, 0,  0); }
+  50%       { transform: translate3d(0, -8px, 0); }
 }
 
 @keyframes pulse-soft {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.7; }
 }
 
 @keyframes growUp {
-  from {
-    transform: scaleY(0);
-    opacity: 0;
-  }
-  to {
-    transform: scaleY(1);
-    opacity: 1;
-  }
+  from { transform: scaleY(0); opacity: 0; }
+  to   { transform: scaleY(1); opacity: 1; }
 }

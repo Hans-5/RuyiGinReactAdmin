@@ -1,23 +1,8 @@
-/* Shared styles for all stub/placeholder pages */
+/* Stub page layout — shared by System, Content, Analytics, Settings.
+ * Page-level header styles live in Common/PageHeader.css.
+ */
 .stub-page {
   padding: 0;
-}
-
-.stub-page-header {
-  margin-bottom: 24px;
-}
-
-.stub-page-header h1 {
-  font-size: 24px;
-  font-weight: 600;
-  color: #1a1a2e;
-  margin: 0 0 8px 0;
-}
-
-.stub-page-subtitle {
-  font-size: 14px;
-  color: #8c8c8c;
-  margin: 0;
 }
 
 .stub-sections {

@@ -1,0 +1,33 @@
+/* Ruyi Guofeng Tech Blue — design tokens
+ *
+ * Secondary developers: customise these variables to rebrand the template.
+ * All component styles reference these tokens, so most visual changes only
+ * require editing this file.
+ */
+:root {
+  --primary-color: #1890ff;
+  --secondary-color: #13c2c2;
+  --accent-color: #faad14;
+  --background-color: #f5f7fa;
+  --surface-color: #ffffff;
+  --text-primary: #262626;
+  --text-secondary: #8c8c8c;
+  --border-color: #d9d9d9;
+  --hover-bg: #f6f7f9;
+  --header-height: 64px;
+  --sidebar-width: 256px;
+
+  /* Frosted glass — tuned for a light backdrop.
+     High-opacity white + saturated blur reads as real frosted panels. */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-bg-light: rgba(255, 255, 255, 0.88);
+  --glass-blur: saturate(160%) blur(16px);
+  --glass-border: rgba(255, 255, 255, 0.9);
+  --shadow-sm: 0 4px 16px rgba(24, 74, 140, 0.08);
+  --shadow-md: 0 8px 28px rgba(24, 74, 140, 0.12);
+  --shadow-lg: 0 16px 40px rgba(24, 74, 140, 0.16);
+  --shadow-xl: 0 24px 56px rgba(24, 74, 140, 0.2);
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}

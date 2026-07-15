@@ -1,2 +1,23 @@
-/* AdminLayout - Reusable layout styles */
-/* Imported by App.css, this ensures consistent structure */
+/* Admin shell layout — header + sidebar + content area structure.
+ * These rules are intentionally co-located with AdminLayout.jsx.
+ */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  /* Soft tech-blue aurora so the frosted panels have color to refract. */
+  background:
+    radial-gradient(ellipse at 12% 0%,   rgba(24, 144, 255, 0.18) 0%, transparent 45%),
+    radial-gradient(ellipse at 100% 15%, rgba(19, 194, 194, 0.16) 0%, transparent 45%),
+    radial-gradient(ellipse at 60% 100%, rgba(24, 144, 255, 0.1)  0%, transparent 50%),
+    linear-gradient(135deg, #eef3fb 0%, #e6ecf5 100%);
+  background-attachment: fixed;
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
